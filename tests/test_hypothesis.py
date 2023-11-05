@@ -26,3 +26,13 @@ def test_fuzz_make_payload(
 ) -> None:
     with pytest.raises(AttributeError):
         grott.extension.ha.make_payload(conf=conf, device=device, key=key, name=name)
+
+
+@given(
+    values=st.dictionaries(
+        st.text(),
+        st.integers() | st.text(),
+    )
+)
+def test_fuzz_cleanup_values(values: typing.Dict[str, any]) -> None:
+    grott.extension.ha.mqtt.cleanup_mqtt_values_field(values=values)

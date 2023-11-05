@@ -13,6 +13,7 @@ from grott.extension.ha.constants import (
 )
 from grott.extension.ha.interface import FakeConf
 from grott.extension.ha.mqtt import (
+    cleanup_mqtt_values_field,
     is_valid_mqtt_topic,
     make_payload,
     publish_multiple,
@@ -43,7 +44,7 @@ def grottext(conf: FakeConf, data: str, jsonmsg: str):
         return 5
 
     device_serial = payload["device"]
-    values = payload["values"]
+    values = cleanup_mqtt_values_field(payload["values"])
 
     # Send the last push in UTC with TZ
     dt = datetime.now(timezone.utc)

@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Dict, Optional
 
 from paho.mqtt.publish import multiple, single
 
@@ -43,6 +43,7 @@ def is_valid_mqtt_topic(key_name: str) -> bool:
     :param key_name: The value of the key (e.g. "ACDischarWatt")
     :return: True if the key is a valid mqtt topic, False otherwise
     """
+    key_name = key_name.strip()
     # Character used to bind wildcard topics
     if key_name.startswith("#"):
         return False
@@ -58,6 +59,15 @@ def is_valid_mqtt_topic(key_name: str) -> bool:
     if key_name.startswith("$"):
         return False
     return True
+
+
+def cleanup_mqtt_values_field(values: Dict[str, any]) -> Dict[str, any]:
+    """Cleanup the values from invalid keys
+
+    :param values: Original dict
+    :return: The cleaned-up values
+    """
+    return {k.strip(): v for k, v in values.items() if is_valid_mqtt_topic(k)}
 
 
 def make_payload(conf: FakeConf, device: str, key: str, name: Optional[str] = None) -> dict:
