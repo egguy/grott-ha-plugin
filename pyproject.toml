@@ -8,9 +8,13 @@ authors = [
 dependencies = [
     "paho-mqtt ~= 1.6.1",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.8"
 readme = "README.md"
 license = { text = "MIT" }
+
+[project.urls]
+Repository = "https://github.com/egguy/grott-ha-plugin"
+Homepage = "https://github.com/egguy/grott-ha-plugin"
 
 [project.optional-dependencies]
 lint = [
@@ -141,5 +145,8 @@ exclude_lines = [
     "if TYPE_CHECKING:",
 ]
 
-[tool.pdm]
-version = { source = "file", path = "grott/extension/ha/__init__.py" }
+[tool.pdm.version]
+source = "scm"
+
+[tool.pdm.scripts]
+lint = {shell = "ruff check . --fix  && ruff format . && mypy --strict --install-types --non-interactive src/"}

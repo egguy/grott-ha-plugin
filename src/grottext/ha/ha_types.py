@@ -1,5 +1,5 @@
 from dataclasses import asdict, dataclass
-from typing import Any, Optional
+from typing import Any, Dict, Optional
 
 
 @dataclass
@@ -74,6 +74,12 @@ class ApparentPower(MeasurementSensor):
 
 
 @dataclass
+class ReactivePower(MeasurementSensor):
+    device_class: str = "reactive_power"
+    unit_of_measurement: str = "var"
+
+
+@dataclass
 class BatteryChargeSensor(MeasurementSensor):
     device_class: str = "battery"
     unit_of_measurement: str = "%"
@@ -93,7 +99,12 @@ class IncreasingEnergySensor(MeasurementSensor):
     unit_of_measurement: str = "kWh"
 
 
-def to_dict(obj: Any) -> dict:
+@dataclass
+class PowerFactor(MeasurementSensor):
+    device_class: str = "power_factor"
+
+
+def to_dict(obj: Any) -> Dict[str, Any]:
     """Convert a dataclass object to dict
 
     :param obj: The sensor object to convert

@@ -1,15 +1,14 @@
 # Test section
 # In the same file to keep the plugin contained
 import pytest
-
-from grott.extension.ha import FakeConf
+from grottext.ha.interface import FakeConf
 
 test_serial = "NCO7410"
 test_key = "pvpowerout"
 test_layout = "test"
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def fake_config() -> FakeConf:
     """Create a fake config with a test layout"""
     conf = FakeConf()

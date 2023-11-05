@@ -3,16 +3,15 @@
 import typing
 
 import pytest
+from grottext.ha.interface import FakeConf
+from grottext.ha.mqtt import cleanup_mqtt_values_field, is_valid_mqtt_topic, make_payload
 from hypothesis import given
 from hypothesis import strategies as st
-
-import grott.extension.ha
-from grott.extension.ha import FakeConf
 
 
 @given(key_name=st.text())
 def test_fuzz_is_valid_mqtt_topic(key_name: str) -> None:
-    grott.extension.ha.is_valid_mqtt_topic(key_name=key_name)
+    is_valid_mqtt_topic(key_name=key_name)
 
 
 @given(
@@ -21,11 +20,9 @@ def test_fuzz_is_valid_mqtt_topic(key_name: str) -> None:
     key=st.text(),
     name=st.one_of(st.none(), st.text()),
 )
-def test_fuzz_make_payload(
-    conf: grott.extension.ha.FakeConf, device: str, key: str, name: typing.Optional[str]
-) -> None:
+def test_fuzz_make_payload(conf: FakeConf, device: str, key: str, name: typing.Optional[str]) -> None:
     with pytest.raises(AttributeError):
-        grott.extension.ha.make_payload(conf=conf, device=device, key=key, name=name)
+        make_payload(conf=conf, device=device, key=key, name=name)
 
 
 @given(
@@ -34,5 +31,5 @@ def test_fuzz_make_payload(
         st.integers() | st.text(),
     )
 )
-def test_fuzz_cleanup_values(values: typing.Dict[str, any]) -> None:
-    grott.extension.ha.mqtt.cleanup_mqtt_values_field(values=values)
+def test_fuzz_cleanup_values(values: typing.Dict[str, typing.Any]) -> None:
+    cleanup_mqtt_values_field(values=values)

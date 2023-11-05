@@ -1,24 +1,24 @@
 from dataclasses import dataclass
-from typing import Dict, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from paho.mqtt.publish import multiple, single
 
-from grott.extension.ha.constants import (
+from grottext.ha.constants import (
     MQTT_HOST_CONF_KEY,
     MQTT_PASSWORD_CONF_KEY,
     MQTT_PORT_CONF_KEY,
     MQTT_USERNAME_CONF_KEY,
 )
-from grott.extension.ha.ha_types import to_dict
-from grott.extension.ha.interface import FakeConf
-from grott.extension.ha.mappings import mapping
+from grottext.ha.ha_types import to_dict
+from grottext.ha.interface import FakeConf
+from grottext.ha.mappings import mapping
 
 _client_name = "Grott - HA"
 
 
 @dataclass
 class Device:
-    identifiers: list[str]
+    identifiers: List[str]
     name: str
     manufacturer: str
 
@@ -61,7 +61,7 @@ def is_valid_mqtt_topic(key_name: str) -> bool:
     return True
 
 
-def cleanup_mqtt_values_field(values: Dict[str, any]) -> Dict[str, any]:
+def cleanup_mqtt_values_field(values: Dict[str, Any]) -> Dict[str, Any]:
     """Cleanup the values from invalid keys
 
     :param values: Original dict
@@ -70,7 +70,7 @@ def cleanup_mqtt_values_field(values: Dict[str, any]) -> Dict[str, any]:
     return {k.strip(): v for k, v in values.items() if is_valid_mqtt_topic(k)}
 
 
-def make_payload(conf: FakeConf, device: str, key: str, name: Optional[str] = None) -> dict:
+def make_payload(conf: FakeConf, device: str, key: str, name: Optional[str] = None) -> Dict[str, str]:
     """Generate a MQTT payload for a sensor
 
     Use default values to create a sensor payload, then update with custom
@@ -112,11 +112,20 @@ def make_payload(conf: FakeConf, device: str, key: str, name: Optional[str] = No
         if key in layout:
             # From grottdata:207, default type is num, also process numx
             register_type = layout[key].get("type", "num")
-            # The register is a numercical type
+            # The register is a numerical type
             if register_type in ("num", "numx"):
                 # default divide is 1, if not found
                 divider = layout[key].get("divide", "1")
                 value_template = f"{{{{ value_json.{key} | float / {divider} }}}}"
+            elif register_type == "log":
+                # register is already a float, no need to divide
+                value_template = f"{{{{ value_json.{key} | float }}}}"
+            elif register_type == "logpos":
+                # register is already a float, no need to divide
+                value_template = f"{{{{ [value_json.{key} | float, 0.0] | max }}}}"
+            elif register_type == "logneg":
+                # register is already a float, no need to divide
+                value_template = f"{{{{ [value_json.{key} | float, 0.0] | min }}}}"
 
     if value_template is None:
         value_template = f"{{{{ value_json.{key} }}}}"
@@ -151,7 +160,7 @@ def make_payload(conf: FakeConf, device: str, key: str, name: Optional[str] = No
     return to_dict(payload)
 
 
-def process_conf(conf: FakeConf):
+def process_conf(conf: FakeConf) -> Dict[str, Union[str, int, Dict[str, Any], None]]:
     required_params = [
         MQTT_HOST_CONF_KEY,
         MQTT_PORT_CONF_KEY,
@@ -168,10 +177,16 @@ def process_conf(conf: FakeConf):
     else:
         auth = None
 
+    mqtt_port = conf.extvar[MQTT_PORT_CONF_KEY]
     # Need to convert the port if passed as a string
-    port = conf.extvar[MQTT_PORT_CONF_KEY]
-    if isinstance(port, str):
-        port = int(port)
+    if isinstance(mqtt_port, str):
+        port = int(mqtt_port)
+    elif isinstance(mqtt_port, int):
+        port = mqtt_port
+    else:
+        msg = f"Invalid port type: {type(mqtt_port)}"
+        raise AttributeError(msg)
+
     return {
         "client_id": _client_name,
         "auth": auth,
@@ -180,11 +195,11 @@ def process_conf(conf: FakeConf):
     }
 
 
-def publish_single(conf: FakeConf, topic, payload, *, retain=False):
-    conf = process_conf(conf)
-    return single(topic, payload=payload, retain=retain, **conf)
+def publish_single(conf: FakeConf, topic: str, payload: str, *, retain: bool = False) -> None:
+    mqtt_conf = process_conf(conf)
+    single(topic, payload=payload, retain=retain, **mqtt_conf)
 
 
-def publish_multiple(conf: FakeConf, msgs):
-    conf = process_conf(conf)
-    return multiple(msgs, **conf)
+def publish_multiple(conf: FakeConf, msgs: List[Dict[str, Any]]) -> None:
+    mqtt_conf = process_conf(conf)
+    multiple(msgs, **mqtt_conf)

@@ -1,18 +1,18 @@
 import json
 import traceback
 from datetime import datetime, timezone
-from typing import Dict, cast
+from typing import Any, Dict, cast
 
-from grott.extension.ha import __version__
-from grott.extension.ha.constants import (
+from grottext.ha.__version__ import __version__
+from grottext.ha.constants import (
     CONFIG_TOPIC,
     MQTT_HOST_CONF_KEY,
     MQTT_PORT_CONF_KEY,
     MQTT_RETAIN_CONF_KEY,
     STATE_TOPIC,
 )
-from grott.extension.ha.interface import FakeConf
-from grott.extension.ha.mqtt import (
+from grottext.ha.interface import FakeConf
+from grottext.ha.mqtt import (
     cleanup_mqtt_values_field,
     is_valid_mqtt_topic,
     make_payload,
@@ -23,7 +23,7 @@ from grott.extension.ha.mqtt import (
 __pv_config: Dict[str, bool] = {}
 
 
-def grottext(conf: FakeConf, data: str, jsonmsg: str):
+def grottext(conf: FakeConf, data: str, jsonmsg: str) -> int:
     """Allow pushing to HA MQTT bus, with auto discovery"""
 
     required_params = [
@@ -35,7 +35,7 @@ def grottext(conf: FakeConf, data: str, jsonmsg: str):
         return 1
 
     # Need to decode the json string
-    payload = cast(dict, json.loads(jsonmsg))
+    payload = cast(Dict[str, Any], json.loads(jsonmsg))
 
     if payload.get("buffered") == "yes":
         # Skip buffered message, HA don't support them
@@ -59,7 +59,7 @@ def grottext(conf: FakeConf, data: str, jsonmsg: str):
             # Prevent creating invalid MQTT topics
             if not is_valid_mqtt_topic(key):
                 if conf.verbose:
-                    print(f"\t[Grott HA] {__version__} skipped key: {key}")
+                    print(f"\t[Grott HA] {__version__} skipped key: {key} invalid name")
                 continue
             # Generate a configuration payload
             try:
@@ -121,6 +121,8 @@ def grottext(conf: FakeConf, data: str, jsonmsg: str):
 
     # Push the values to the topic
     retain = conf.extvar.get(MQTT_RETAIN_CONF_KEY, False)
+    if not isinstance(retain, bool):
+        retain = False
     try:
         publish_single(
             conf,

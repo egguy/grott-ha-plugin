@@ -2,7 +2,7 @@ import os
 
 import nox
 
-os.environ.update({"PDM_IGNORE_SAVED_PYTHON": "1"})
+os.environ.update(PDM_IGNORE_SAVED_PYTHON="1", PDM_USE_VENV="1")
 
 PYTHON_VERSIONS = [
     "3.7",

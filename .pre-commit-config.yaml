@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
+    rev: v4.5.0
     hooks:
       - id: check-yaml
       - id: end-of-file-fixer
@@ -17,11 +17,11 @@ repos:
       # Run the Ruff formatter.
       - id: ruff-format
 
-
   # export python requirements
   - repo: https://github.com/pdm-project/pdm
     rev: 2.10.0
     hooks:
+      - id: pdm-lock-check
       - id: pdm-export
         # command arguments, e.g.:
         args: [ '-o', 'requirements.txt', '--without-hashes' ]

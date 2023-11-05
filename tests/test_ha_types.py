@@ -1,10 +1,9 @@
 import pytest
-
-from grott.extension.ha import MQTT_HOST_CONF_KEY, MQTT_PORT_CONF_KEY, FakeConf, make_payload
-from grott.extension.ha.constants import MQTT_PASSWORD_CONF_KEY, MQTT_USERNAME_CONF_KEY
-from grott.extension.ha.ha_types import BaseSensor, DiagnosticSensor, to_dict
-from grott.extension.ha.mappings import mapping
-from grott.extension.ha.mqtt import process_conf
+from grottext.ha.constants import MQTT_HOST_CONF_KEY, MQTT_PASSWORD_CONF_KEY, MQTT_PORT_CONF_KEY, MQTT_USERNAME_CONF_KEY
+from grottext.ha.ha_types import BaseSensor, DiagnosticSensor, to_dict
+from grottext.ha.interface import FakeConf
+from grottext.ha.mappings import mapping
+from grottext.ha.mqtt import make_payload, process_conf
 
 from .conftest import test_key, test_serial
 
