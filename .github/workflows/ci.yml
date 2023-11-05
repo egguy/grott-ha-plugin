@@ -34,4 +34,4 @@ jobs:
       - name: Install dependencies
         run: pip install nox
       - name: Run Tests
-        run: nox -s test-${{ matrix.python-version }}
+        run: nox -s tests-${{ matrix.python-version }}
