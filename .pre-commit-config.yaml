@@ -13,7 +13,10 @@ repos:
     rev: v0.1.4
     hooks:
       - id: ruff
-#      args: [--fix, --exit-non-zero-on-fix]
+        args: [ --fix, --exit-non-zero-on-fix ]
+      # Run the Ruff formatter.
+      - id: ruff-format
+
 
   # export python requirements
   - repo: https://github.com/pdm-project/pdm
@@ -21,5 +24,5 @@ repos:
     hooks:
       - id: pdm-export
         # command arguments, e.g.:
-        args: ['-o', 'requirements.txt', '--without-hashes']
+        args: [ '-o', 'requirements.txt', '--without-hashes' ]
         files: ^pdm.lock$
