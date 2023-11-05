@@ -1,0 +1,25 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+        args: [ --maxkb=100 ]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.1.4
+    hooks:
+      - id: ruff
+#      args: [--fix, --exit-non-zero-on-fix]
+
+  # export python requirements
+  - repo: https://github.com/pdm-project/pdm
+    rev: 2.10.0
+    hooks:
+      - id: pdm-export
+        # command arguments, e.g.:
+        args: ['-o', 'requirements.txt', '--without-hashes']
+        files: ^pdm.lock$
