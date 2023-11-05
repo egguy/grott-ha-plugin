@@ -1,3 +1,5 @@
+import pytest
+
 from grott.extension.ha import MQTT_HOST_CONF_KEY, MQTT_PORT_CONF_KEY, FakeConf, make_payload
 from grott.extension.ha.constants import MQTT_PASSWORD_CONF_KEY, MQTT_USERNAME_CONF_KEY
 from grott.extension.ha.ha_types import BaseSensor, DiagnosticSensor, to_dict
@@ -76,7 +78,6 @@ def test_name_generation(fake_config):
 def test_name_generation_non_mapped(fake_config):
     "Test the output of the name generation"
 
-
     # test date {"value" :76, "length" : 10, "type" : "text"},
     payload = make_payload(fake_config, test_serial, "duck")
 
@@ -87,7 +88,7 @@ def test_process_conf():
     conf = FakeConf()
     try:
         res = process_conf(conf)
-        assert False, "Should have raised an exception"
+        pytest.fail("Should have raised an exception")
     except AttributeError:
         pass
 

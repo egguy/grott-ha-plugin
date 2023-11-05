@@ -1,4 +1,4 @@
-from grott.extension.ha import FakeConf, make_payload
+from grott.extension.ha import make_payload
 from grott.extension.ha.ha_types import to_dict
 from grott.extension.ha.mappings import mapping
 from grott.extension.ha.mqtt import MQTTConfigPayload
@@ -44,5 +44,5 @@ def test_all_mapping_cover_config():
         # convert the mapping to a dict
         key_mapping = to_dict(value)
         # Check if the MQTTConfigPayload has the attributes
-        for k in key_mapping.keys():
-            assert k in fields , f"Missing attribute for {key} - {k}"
+        for k in key_mapping:
+            assert k in fields, f"Missing attribute for {key} - {k}"

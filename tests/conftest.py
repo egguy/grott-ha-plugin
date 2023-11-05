@@ -14,14 +14,14 @@ def fake_config() -> FakeConf:
     """Create a fake config with a test layout"""
     conf = FakeConf()
     conf.recorddict = {
-                "test": {
-                    test_key: {
-                        "value": 122,
-                        "length": 4,
-                        "type": "num",
-                    }
-                }
+        "test": {
+            test_key: {
+                "value": 122,
+                "length": 4,
+                "type": "num",
             }
+        }
+    }
     conf.layout = "test"
     conf.extvar = {}
     conf.verbose = True

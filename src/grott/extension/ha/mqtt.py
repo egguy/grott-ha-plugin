@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Optional, TypedDict
+from typing import Optional
 
 from paho.mqtt.publish import multiple, single
 
@@ -75,13 +75,17 @@ def make_payload(conf: FakeConf, device: str, key: str, name: Optional[str] = No
     """
 
     if not device:
-        raise AttributeError("device is required")
+        msg = "device is required"
+        raise AttributeError(msg)
     if not key:
-        raise AttributeError("key is required")
+        msg = "key is required"
+        raise AttributeError(msg)
     if not conf.layout:
-        raise AttributeError("grott config class error")
+        msg = "grott config class error"
+        raise AttributeError(msg)
     if conf.layout not in conf.recorddict:
-        raise AttributeError("grott config class error, missing record layout")
+        msg = "grott config class error, missing record layout"
+        raise AttributeError(msg)
 
     if name is None:
         name = key
@@ -107,7 +111,6 @@ def make_payload(conf: FakeConf, device: str, key: str, name: Optional[str] = No
     if value_template is None:
         value_template = f"{{{{ value_json.{key} }}}}"
 
-
     # Default configuration payload
     payload = MQTTConfigPayload(
         name="{name}",
@@ -118,7 +121,7 @@ def make_payload(conf: FakeConf, device: str, key: str, name: Optional[str] = No
             name=device,
             manufacturer="GrowWatt",
         ),
-        value_template=value_template
+        value_template=value_template,
     )
 
     if sensor is not None:
@@ -130,8 +133,6 @@ def make_payload(conf: FakeConf, device: str, key: str, name: Optional[str] = No
         payload.icon = sensor.icon
         payload.entity_category = sensor.entity_category
         payload.unit_of_measurement = sensor.unit_of_measurement
-
-
 
     # Generate the name of the key, with all the param available
     payload.name = payload.name.format(device=device, name=name, key=key)
@@ -169,12 +170,11 @@ def process_conf(conf: FakeConf):
     }
 
 
-def publish_single(conf: FakeConf, topic, payload, retain=False):
+def publish_single(conf: FakeConf, topic, payload, *, retain=False):
     conf = process_conf(conf)
     return single(topic, payload=payload, retain=retain, **conf)
 
 
 def publish_multiple(conf: FakeConf, msgs):
     conf = process_conf(conf)
-    print(conf)
     return multiple(msgs, **conf)

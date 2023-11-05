@@ -4,11 +4,17 @@ import nox
 
 os.environ.update({"PDM_IGNORE_SAVED_PYTHON": "1"})
 
-PYTHON_VERSIONS = ["3.7", "3.8", "3.9", "3.10", "3.11", "3.12",]
+PYTHON_VERSIONS = [
+    "3.7",
+    "3.8",
+    "3.9",
+    "3.10",
+    "3.11",
+    "3.12",
+]
 
-@nox.session(
-python=PYTHON_VERSIONS
-)
+
+@nox.session(python=PYTHON_VERSIONS)
 def tests(session):
     session.run("pdm", "install", "-G", "test", external=True)
     session.run("pytest")

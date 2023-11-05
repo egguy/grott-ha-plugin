@@ -124,7 +124,10 @@ mapping: Dict[str, BaseSensor] = {
     "batterytype": BaseSensor(
         "Battery type",
         icon="mdi:power-settings",
-        value_template="{% if value_json.batterytype == '0' %}Lithium{% elif value_json.batterytype == '1' %}Lead-acid{% elif value_json.batterytype == '2' %}Other{% else %}Unknown{% endif %}",
+        value_template="{% if value_json.batterytype == '0' %}Lithium"
+        "{% elif value_json.batterytype == '1' %}Lead-acid"
+        "{% elif value_json.batterytype == '2' %}Other"
+        "{% else %}Unknown{% endif %}",
     ),
     "p1charge1": PowerSensor("Battery Charging Power", icon="mdi:battery-arrow-up"),
     "eharge1_tod": EnergySensor("Battery charge (Today)", icon="mdi:battery-arrow-up"),
