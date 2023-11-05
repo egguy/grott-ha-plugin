@@ -1,6 +1,7 @@
 # Test section
 # In the same file to keep the plugin contained
 import pytest
+
 from grottext.ha.interface import FakeConf
 
 test_serial = "NCO7410"

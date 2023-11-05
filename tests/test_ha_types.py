@@ -1,4 +1,5 @@
 import pytest
+
 from grottext.ha.constants import MQTT_HOST_CONF_KEY, MQTT_PASSWORD_CONF_KEY, MQTT_PORT_CONF_KEY, MQTT_USERNAME_CONF_KEY
 from grottext.ha.ha_types import BaseSensor, DiagnosticSensor, to_dict
 from grottext.ha.interface import FakeConf

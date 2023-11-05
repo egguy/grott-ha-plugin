@@ -35,6 +35,8 @@ dev = [
     "coverage[toml]>=6.5",
     "nox>=2023.4.22",
     "hypothesis>=6.88.1",
+    "towncrier>=19.2",
+    "parver>=0.3",
 ]
 
 [tool.pytest.ini_options]
@@ -117,7 +119,7 @@ unfixable = [
 ]
 
 [tool.ruff.isort]
-known-first-party = ["grott"]
+known-first-party = ["grott", "grottext"]
 
 [tool.ruff.flake8-tidy-imports]
 ban-relative-imports = "all"
@@ -150,3 +152,44 @@ source = "scm"
 
 [tool.pdm.scripts]
 lint = {shell = "ruff check . --fix  && ruff format . && mypy --strict --install-types --non-interactive src/"}
+test = "pytest tests/"
+
+[tool.towncrier]
+package = "grottext.ha"
+filename = "CHANGELOG.md"
+issue_format = "{{'[#{issue}]'}}(https://github.com/egguy/grott-ha-plugin/issues/{issue})"
+directory = "news/"
+start_string = "<!-- insertion marker -->"
+title_format = "[v{version}](https://github.com/egguy/grott-ha-plugin/releases/tag/{version}) ({project_date})"
+template = "news/towncrier_template.md"
+underlines = "-~^"
+
+[[tool.towncrier.type]]
+directory = "feature"
+name = "Features & Improvements"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "bugfix"
+name = "Bug Fixes"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "doc"
+name = "Improved Documentation"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "dep"
+name = "Dependencies"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "removal"
+name = "Removals and Deprecations"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "misc"
+name = "Miscellany"
+showcontent = true

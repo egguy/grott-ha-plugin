@@ -1,4 +1,5 @@
 import pytest
+
 from grottext.ha.interface import FakeConf
 from grottext.ha.mqtt import cleanup_mqtt_values_field, is_valid_mqtt_topic, make_payload
 

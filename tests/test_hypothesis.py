@@ -3,10 +3,11 @@
 import typing
 
 import pytest
-from grottext.ha.interface import FakeConf
-from grottext.ha.mqtt import cleanup_mqtt_values_field, is_valid_mqtt_topic, make_payload
 from hypothesis import given
 from hypothesis import strategies as st
+
+from grottext.ha.interface import FakeConf
+from grottext.ha.mqtt import cleanup_mqtt_values_field, is_valid_mqtt_topic, make_payload
 
 
 @given(key_name=st.text())
