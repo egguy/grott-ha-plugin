@@ -1,7 +1,7 @@
 [project]
 name = "grott-ha"
 dynamic = ["version"]
-description = "An extension for grott to add the HA support"
+description = "An extension for grott to enable HA support"
 authors = [
     { name = "egguy", email = "etienne.guilluy@gmail.com" },
 ]
@@ -11,6 +11,17 @@ dependencies = [
 requires-python = ">=3.8"
 readme = "README.md"
 license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 [project.urls]
 Repository = "https://github.com/egguy/grott-ha-plugin"
@@ -37,6 +48,21 @@ dev = [
     "hypothesis>=6.88.1",
     "towncrier>=19.2",
     "parver>=0.3",
+]
+docs = [
+    "black>=23.9",
+    "markdown-callouts>=0.3",
+    "markdown-exec>=1.7",
+    "mkdocs>=1.5",
+    "mkdocs-coverage>=1.0",
+    "mkdocs-gen-files>=0.5",
+    "mkdocs-git-committers-plugin-2>=1.2",
+#    {#- "mkdocs-git-revision-date-localized-plugin>=1.2", #}
+    "mkdocs-literate-nav>=0.6",
+    "mkdocs-material>=9.4",
+    "mkdocs-minify-plugin>=0.7",
+    "mkdocstrings[python]>=0.23",
+    "tomli>=2.0; python_version < '3.11'",
 ]
 
 [tool.pytest.ini_options]
@@ -117,6 +143,11 @@ unfixable = [
     # Don't touch unused imports
     "F401",
 ]
+exclude = [
+    "site",
+    "tasks"
+]
+
 
 [tool.ruff.isort]
 known-first-party = ["grott", "grottext"]
@@ -149,9 +180,12 @@ exclude_lines = [
 
 [tool.pdm.version]
 source = "scm"
+write_to = "src/grottext/ha/__version__.py"
+write_template = "__version__ = '{}'"
 
 [tool.pdm.scripts]
 lint = {shell = "ruff check . --fix  && ruff format . && mypy --strict --install-types --non-interactive src/"}
+release = "python -m tasks.release"
 test = "pytest tests/"
 
 [tool.towncrier]
