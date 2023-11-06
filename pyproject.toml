@@ -191,6 +191,7 @@ doc = {shell = "mkdocs serve", help = "Start the dev server for doc preview"}
 
 [tool.towncrier]
 package = "grottext.ha"
+package_dir = "src"
 filename = "CHANGELOG.md"
 issue_format = "{{'[#{issue}]'}}(https://github.com/egguy/grott-ha-plugin/issues/{issue})"
 directory = "news/"
