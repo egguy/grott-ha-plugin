@@ -1,5 +1,5 @@
 [project]
-name = "grott-ha"
+name = "grott-ha-plugin"
 dynamic = ["version"]
 description = "An extension for grott to enable HA support"
 authors = [
