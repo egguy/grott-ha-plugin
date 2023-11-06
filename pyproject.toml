@@ -187,6 +187,7 @@ write_template = "__version__ = '{}'"
 lint = {shell = "ruff check . --fix  && ruff format . && mypy --strict --install-types --non-interactive src/"}
 release = "python -m tasks.release"
 test = "pytest tests/"
+doc = {shell = "mkdocs serve", help = "Start the dev server for doc preview"}
 
 [tool.towncrier]
 package = "grottext.ha"

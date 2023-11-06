@@ -1,0 +1,1 @@
+Add documentation + automated release
