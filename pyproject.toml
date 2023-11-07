@@ -160,16 +160,20 @@ ban-relative-imports = "all"
 "tests/**/*" = ["TID252", "S101", "PLR2004", "ARG", "FBT"]
 
 [tool.coverage.run]
-source_pkgs = ["hatch_showcase", "tests"]
+source_pkgs = [ "tests"]
 branch = true
 parallel = true
-#omit = [
-#  "src/grott/__main__.py",
-#]
+source = ["src/", "tests/"]
+omit = [
+  "src/*/__init__.py",
+  "src/*/__main__.py",
+  "tests/*"
+]
 
-#[tool.coverage.paths]
+[tool.coverage.paths]
+source= ["src/"]
 #hatch_showcase = ["src/grott", "*//src/hatch_showcase"]
-#tests = ["tests", "*/hatch-showcase/tests"]
+tests = ["tests/"]
 
 [tool.coverage.report]
 exclude_lines = [
@@ -177,6 +181,9 @@ exclude_lines = [
     "if __name__ == .__main__.:",
     "if TYPE_CHECKING:",
 ]
+
+[tool.coverage.json]
+output = "htmlcov/coverage.json"
 
 [tool.pdm.version]
 source = "scm"
