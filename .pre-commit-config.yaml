@@ -24,10 +24,6 @@ repos:
     rev: 2.10.0
     hooks:
       - id: pdm-lock-check
-      - id: pdm-export
-        # command arguments, e.g.:
-        args: [ '-o', 'requirements.txt', '--without-hashes' ]
-        files: ^pdm.lock$
 
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.6.1
