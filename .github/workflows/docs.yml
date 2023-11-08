@@ -8,11 +8,11 @@ on:
     paths:
       - "*.md"
       - docs/**
-    workflow_dispatch:
-      start-worflow:
-        description: 'Number of Octocats'
-        required: false
-        default: '1'
+  workflow_dispatch:
+    start-worflow:
+      description: 'Number of Octocats'
+      required: false
+      default: '1'
 
 jobs:
   build-doc:
