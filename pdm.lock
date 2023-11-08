@@ -5,7 +5,7 @@
 groups = ["default", "ci-quality", "ci-tests", "dev", "docs", "duty", "lint", "maintain", "quality", "security", "test", "tests", "typing"]
 strategy = ["cross_platform"]
 lock_version = "4.4"
-content_hash = "sha256:faecb6303e683ea2aa2532e933ef9ef469668507227f6f7a8ee60f03cb386eba"
+content_hash = "sha256:4f454fe320badbb889049ecc35f0dacb34189bc5d183555bf5ccccde241eab6d"
 
 [[package]]
 name = "ansimarkup"

@@ -78,6 +78,7 @@ tests = [
     "pytest>=7.4.2",
     "coverage[toml]>=6.5",
     "nox>=2023.4.22",
+    "hypothesis>=6.88.1",
 ]
 typing = [
     "mypy>=1.6.1",
@@ -90,7 +91,7 @@ security = [
 
 [tool.pytest.ini_options]
 addopts = [
-    "--import-mode=importlib", "--cov=src", "--cov-report=html"
+    "--import-mode=importlib",
 ]
 pythonpath = "src"
 norecursedirs = [
@@ -99,13 +100,14 @@ norecursedirs = [
   ".env",
   "dist",
   "build",
+    "__pypackages__",
   ]
 python_files = [
     "test_*.py",
   "*_test.py",
   "tests.py",
     ]
-testpaths = "tests"
+#testpaths = "tests"
 
 [tool.mypy]
 disallow_untyped_defs = false
@@ -179,9 +181,10 @@ unfixable = [
     # Don't touch unused imports
     "F401",
 ]
-exclude = [
+extend-exclude = [
     "site",
-    "tasks"
+    "tasks",
+    "src/grottext/ha/__version__.py",
 ]
 
 
@@ -224,7 +227,7 @@ output = "htmlcov/coverage.json"
 
 [tool.pdm.version]
 source = "scm"
-write_to = "src/grottext/ha/__version__.py"
+write_to = "grottext/ha/__version__.py"
 write_template = "__version__ = \"{}\""
 
 [tool.pdm]
@@ -239,6 +242,6 @@ type-check = "mypy --strict --install-types --non-interactive src/"
 doc-check = "mkdocs build -sv"
 lint = {composite = ["ruff", "ruff-format", "type-check", "doc-check"]}
 release = "python -m tasks.release"
-test = "pytest"
+test = "pytest  --cov=src --cov-report=html"
 doc = {shell = "mkdocs serve", help = "Start the dev server for doc preview"}
 nox = "nox"

@@ -16,8 +16,8 @@ PYTHON_VERSIONS = [
 
 @nox.session(python=PYTHON_VERSIONS)
 def tests(session):
-    session.run("pdm", "install", "-G", "test", external=True)
-    session.run("pytest", "tests/")
+    session.run("pdm", "install", "-G", "tests", external=True)
+    session.run("pytest")
 
 
 @nox.session
