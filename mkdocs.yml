@@ -5,7 +5,7 @@ repo_url: "https://github.com/egguy/grott-ha-plugin"
 repo_name: "egguy/grott-ha-plugin"
 site_dir: "site"
 # CONTRIBUTING.md,
-watch: [mkdocs.yml, README.md,  CHANGELOG.md, src/grottext/ha]
+watch: [mkdocs.yml, README.md,  CHANGELOG.md, CONTRIBUTING.md, src/grottext/ha]
 #copyright: Copyright &copy; 2023 egguy
 edit_uri: edit/main/docs/
 
@@ -24,7 +24,7 @@ nav:
   - API reference:
       - grott-ha-plugin: reference/
   - Development:
-#      - Contributing: contributing.md
+      - Contributing: contributing.md
 #      - Code of Conduct: code_of_conduct.md
       - Coverage report: coverage.md
 
