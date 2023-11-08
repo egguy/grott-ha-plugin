@@ -1,5 +1,12 @@
 # grott-ha-plugin
 
+
+[![ci](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/egguy/grott-ha-plugin/actions/workflows/ci.yml)
+[![documentation](https://img.shields.io/badge/docs-mkdocs%20material-blue.svg?style=flat)](https://egguy.github.io/grott-ha-plugin/)
+[![pypi version](https://img.shields.io/pypi/v/grott-ha-plugin.svg)](https://pypi.org/project/grott-ha-plugin/)
+
+[//]: # ([![gitpod]&#40;https://img.shields.io/badge/gitpod-workspace-blue.svg?style=flat&#41;]&#40;https://gitpod.io/#https://github.com/egguy/grott-ha-plugin&#41;)
+
 Plugin to interface Home Assistant and Grott. Allow auto discovery of the devices on Home Assistant.
 
 Compatibility:
