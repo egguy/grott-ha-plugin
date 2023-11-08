@@ -3,7 +3,7 @@ site_description: "A Home Assistant plugin for Grott"
 site_url: "https://egguy.github.io/grott-ha-plugin"
 repo_url: "https://github.com/egguy/grott-ha-plugin"
 repo_name: "egguy/grott-ha-plugin"
-site_dir: "docs/site"
+site_dir: "site"
 # CONTRIBUTING.md,
 watch: [mkdocs.yml, README.md,  CHANGELOG.md, src/grottext/ha]
 #copyright: Copyright &copy; 2023 egguy
