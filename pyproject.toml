@@ -233,7 +233,12 @@ plugins = [
 ]
 
 [tool.pdm.scripts]
-lint = {shell = "ruff check . --fix  && ruff format . && mypy --strict --install-types --non-interactive src/"}
+ruff = "ruff check . --fix"
+ruff-format = "ruff format ."
+type-check = "mypy --strict --install-types --non-interactive src/"
+doc-check = "mkdocs build -sv"
+lint = {composite = ["ruff", "ruff-format", "type-check", "doc-check"]}
 release = "python -m tasks.release"
 test = "pytest"
 doc = {shell = "mkdocs serve", help = "Start the dev server for doc preview"}
+nox = "nox"
