@@ -9,6 +9,10 @@ on:
       - "*.md"
       - docs/**
     workflow_dispatch:
+      start-worflow:
+        description: 'Number of Octocats'
+        required: false
+        default: '1'
 
 jobs:
   build-doc:
@@ -16,7 +20,7 @@ jobs:
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
       pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+      id-token: write   # to verify the deployment, originates from an appropriate source
 
     steps:
       - uses: actions/checkout@v4
