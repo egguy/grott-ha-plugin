@@ -187,7 +187,7 @@ output = "htmlcov/coverage.json"
 
 [tool.pdm.version]
 source = "scm"
-write_to = "src/grottext/ha/__version__.py"
+write_to = "grottext/ha/__version__.py"
 write_template = "__version__ = '{}'"
 
 [tool.pdm.scripts]
