@@ -26,6 +26,9 @@ build-backend = "pdm.backend"
 [project.urls]
 Repository = "https://github.com/egguy/grott-ha-plugin"
 Homepage = "https://github.com/egguy/grott-ha-plugin"
+Documentation = "https://egguy.github.io/grott-ha-plugin"
+Changelog = "https://egguy.github.io/grott-ha-plugin/changelog"
+Issues = "https://github.com/egguy/grott-ha-plugin/issues"
 
 [project.optional-dependencies]
 lint = [
