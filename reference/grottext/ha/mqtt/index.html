@@ -1025,7 +1025,7 @@
                   
 
   
-    <a href="https://github.com/home/eguilluy/PycharmProjects/groot-ha/src/grottext/ha/mqtt.py" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/home/runner/work/grott-ha-plugin/grott-ha-plugin/src/grottext/ha/mqtt.py" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -1034,7 +1034,7 @@
     
       
     
-    <a href="https://github.com/home/eguilluy/PycharmProjects/groot-ha/src/grottext/ha/mqtt.py" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/home/runner/work/grott-ha-plugin/grott-ha-plugin/src/grottext/ha/mqtt.py" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
     </a>
@@ -1085,22 +1085,58 @@
   <div class="doc doc-contents ">
   
       <p>Cleanup the values from invalid keys</p>
-<p>:param values: Original dict
-:return: The cleaned-up values</p>
+<p>Drop the possible invalid keys from the values and normalize the keys.</p>
+
+
+
+  <p>Parameters:</p>
+  <ul>
+      <li class="field-body">
+        <b><code>values</code></b>
+            (<code><a class="autorefs autorefs-external" title="typing.Dict" href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>)
+        –
+        <div class="doc-md-description">
+          <p>Original dict</p>
+        </div>
+      </li>
+  </ul>
+
+
+
+  <p>Returns:</p>
+  <ul>
+      <li class="field-body">
+            <code><a class="autorefs autorefs-external" title="typing.Dict" href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
+        –
+        <div class="doc-md-description">
+          <p>The cleaned-up values</p>
+      </div>
+      </li>
+  </ul>
 
           <details class="quote">
             <summary>Source code in <code>src/grottext/ha/mqtt.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">64</span>
-<span class="normal">65</span>
-<span class="normal">66</span>
-<span class="normal">67</span>
-<span class="normal">68</span>
-<span class="normal">69</span>
-<span class="normal">70</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">cleanup_mqtt_values_field</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">69</span>
+<span class="normal">70</span>
+<span class="normal">71</span>
+<span class="normal">72</span>
+<span class="normal">73</span>
+<span class="normal">74</span>
+<span class="normal">75</span>
+<span class="normal">76</span>
+<span class="normal">77</span>
+<span class="normal">78</span>
+<span class="normal">79</span>
+<span class="normal">80</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">cleanup_mqtt_values_field</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Cleanup the values from invalid keys</span>
 
-<span class="sd">    :param values: Original dict</span>
-<span class="sd">    :return: The cleaned-up values</span>
+<span class="sd">    Drop the possible invalid keys from the values and normalize the keys.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        values: Original dict</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The cleaned-up values</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">{</span><span class="n">k</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">is_valid_mqtt_topic</span><span class="p">(</span><span class="n">k</span><span class="p">)}</span>
 </code></pre></div></td></tr></table></div>
@@ -1126,8 +1162,34 @@
   <div class="doc doc-contents ">
   
       <p>Check if the key is a valid mqtt topic</p>
-<p>:param key_name: The value of the key (e.g. "ACDischarWatt")
-:return: True if the key is a valid mqtt topic, False otherwise</p>
+<p>Look If the possible topic is valid, based on the MQTT spec and reserved keywords</p>
+
+
+
+  <p>Parameters:</p>
+  <ul>
+      <li class="field-body">
+        <b><code>key_name</code></b>
+            (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+        –
+        <div class="doc-md-description">
+          <p>The value of the key (e.g. "ACDischarWatt")</p>
+        </div>
+      </li>
+  </ul>
+
+
+
+  <p>Returns:</p>
+  <ul>
+      <li class="field-body">
+            <code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>
+        –
+        <div class="doc-md-description">
+          <p>True if the key is a valid mqtt topic, False otherwise</p>
+      </div>
+      </li>
+  </ul>
 
           <details class="quote">
             <summary>Source code in <code>src/grottext/ha/mqtt.py</code></summary>
@@ -1152,11 +1214,21 @@
 <span class="normal">58</span>
 <span class="normal">59</span>
 <span class="normal">60</span>
-<span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">is_valid_mqtt_topic</span><span class="p">(</span><span class="n">key_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span>
+<span class="normal">66</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">is_valid_mqtt_topic</span><span class="p">(</span><span class="n">key_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Check if the key is a valid mqtt topic</span>
 
-<span class="sd">    :param key_name: The value of the key (e.g. &quot;ACDischarWatt&quot;)</span>
-<span class="sd">    :return: True if the key is a valid mqtt topic, False otherwise</span>
+<span class="sd">    Look If the possible topic is valid, based on the MQTT spec and reserved keywords</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        key_name: The value of the key (e.g. &quot;ACDischarWatt&quot;)</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">         True if the key is a valid mqtt topic, False otherwise</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">key_name</span> <span class="o">=</span> <span class="n">key_name</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="c1"># Character used to bind wildcard topics</span>
@@ -1205,25 +1277,63 @@
 <p>Use default values to create a sensor payload, then update with custom
 attributes if they exist.
 E.g., unit_of_measurement/total increasing/etc.</p>
-<p>:param conf: The configuration object, used to extract default divider
-:param device: Use the device name as part of the sensor name + device
-:param key: The key of the sensor sent by grott
-:param name: The name of the sensor, if you want something different
-:return: A dictionary with the MQTT configuration payload</p>
+
+
+
+  <p>Parameters:</p>
+  <ul>
+      <li class="field-body">
+        <b><code>conf</code></b>
+            (<code><a class="autorefs autorefs-internal" title="grottext.ha.interface.FakeConf" href="../interface/#grottext.ha.interface.FakeConf">FakeConf</a></code>)
+        –
+        <div class="doc-md-description">
+          <p>The configuration object, used to extract default divider</p>
+        </div>
+      </li>
+      <li class="field-body">
+        <b><code>device</code></b>
+            (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+        –
+        <div class="doc-md-description">
+          <p>Use the device name as part of the sensor name + device</p>
+        </div>
+      </li>
+      <li class="field-body">
+        <b><code>key</code></b>
+            (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+        –
+        <div class="doc-md-description">
+          <p>The key of the sensor sent by grott</p>
+        </div>
+      </li>
+      <li class="field-body">
+        <b><code>name</code></b>
+            (<code><a class="autorefs autorefs-external" title="typing.Optional" href="https://docs.python.org/3/library/typing.html#typing.Optional">Optional</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>, default:
+                <code>None</code>
+)
+        –
+        <div class="doc-md-description">
+          <p>The name of the sensor, if you want something different</p>
+        </div>
+      </li>
+  </ul>
+
+
+
+  <p>Returns:</p>
+  <ul>
+      <li class="field-body">
+            <code><a class="autorefs autorefs-external" title="typing.Dict" href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>
+        –
+        <div class="doc-md-description">
+          <p>A dictionary with the MQTT configuration payload</p>
+      </div>
+      </li>
+  </ul>
 
           <details class="quote">
             <summary>Source code in <code>src/grottext/ha/mqtt.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 73</span>
-<span class="normal"> 74</span>
-<span class="normal"> 75</span>
-<span class="normal"> 76</span>
-<span class="normal"> 77</span>
-<span class="normal"> 78</span>
-<span class="normal"> 79</span>
-<span class="normal"> 80</span>
-<span class="normal"> 81</span>
-<span class="normal"> 82</span>
-<span class="normal"> 83</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 83</span>
 <span class="normal"> 84</span>
 <span class="normal"> 85</span>
 <span class="normal"> 86</span>
@@ -1300,18 +1410,34 @@ E.g., unit_of_measurement/total increasing/etc.</p>
 <span class="normal">157</span>
 <span class="normal">158</span>
 <span class="normal">159</span>
-<span class="normal">160</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">make_payload</span><span class="p">(</span><span class="n">conf</span><span class="p">:</span> <span class="n">FakeConf</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">make_payload</span><span class="p">(</span><span class="n">conf</span><span class="p">:</span> <span class="n">FakeConf</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a MQTT payload for a sensor</span>
 
 <span class="sd">    Use default values to create a sensor payload, then update with custom</span>
 <span class="sd">    attributes if they exist.</span>
 <span class="sd">    E.g., unit_of_measurement/total increasing/etc.</span>
 
-<span class="sd">    :param conf: The configuration object, used to extract default divider</span>
-<span class="sd">    :param device: Use the device name as part of the sensor name + device</span>
-<span class="sd">    :param key: The key of the sensor sent by grott</span>
-<span class="sd">    :param name: The name of the sensor, if you want something different</span>
-<span class="sd">    :return: A dictionary with the MQTT configuration payload</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        conf: The configuration object, used to extract default divider</span>
+<span class="sd">        device: Use the device name as part of the sensor name + device</span>
+<span class="sd">        key: The key of the sensor sent by grott</span>
+<span class="sd">        name: The name of the sensor, if you want something different</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A dictionary with the MQTT configuration payload</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">device</span><span class="p">:</span>

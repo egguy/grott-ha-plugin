@@ -997,7 +997,7 @@
                   
 
   
-    <a href="https://github.com/home/eguilluy/PycharmProjects/groot-ha/src/grottext/ha/ha_types.py" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/home/runner/work/grott-ha-plugin/grott-ha-plugin/src/grottext/ha/ha_types.py" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -1006,7 +1006,7 @@
     
       
     
-    <a href="https://github.com/home/eguilluy/PycharmProjects/groot-ha/src/grottext/ha/ha_types.py" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/home/runner/work/grott-ha-plugin/grott-ha-plugin/src/grottext/ha/ha_types.py" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
     </a>
@@ -1055,8 +1055,33 @@
   <div class="doc doc-contents ">
   
       <p>Convert a dataclass object to dict</p>
-<p>:param obj: The sensor object to convert
-:return: A dictionary representation of the object</p>
+
+
+
+  <p>Parameters:</p>
+  <ul>
+      <li class="field-body">
+        <b><code>obj</code></b>
+            (<code><a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a></code>)
+        –
+        <div class="doc-md-description">
+          <p>The sensor object to convert</p>
+        </div>
+      </li>
+  </ul>
+
+
+
+  <p>Returns:</p>
+  <ul>
+      <li class="field-body">
+            <code><a class="autorefs autorefs-external" title="typing.Dict" href="https://docs.python.org/3/library/typing.html#typing.Dict">Dict</a>[<a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a class="autorefs autorefs-external" title="typing.Any" href="https://docs.python.org/3/library/typing.html#typing.Any">Any</a>]</code>
+        –
+        <div class="doc-md-description">
+          <p>A dictionary representation of the object</p>
+      </div>
+      </li>
+  </ul>
 
           <details class="quote">
             <summary>Source code in <code>src/grottext/ha/ha_types.py</code></summary>
@@ -1068,11 +1093,17 @@
 <span class="normal">112</span>
 <span class="normal">113</span>
 <span class="normal">114</span>
-<span class="normal">115</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">to_dict</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert a dataclass object to dict</span>
 
-<span class="sd">    :param obj: The sensor object to convert</span>
-<span class="sd">    :return: A dictionary representation of the object</span>
+<span class="sd">    Parameters:</span>
+<span class="sd">        obj: The sensor object to convert</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A dictionary representation of the object</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">dict_obj</span> <span class="o">=</span> <span class="n">asdict</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
     <span class="c1"># Remove None values</span>

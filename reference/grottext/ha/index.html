@@ -950,7 +950,7 @@
                   
 
   
-    <a href="https://github.com/home/eguilluy/PycharmProjects/groot-ha/src/grottext/ha/__init__.py" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/home/runner/work/grott-ha-plugin/grott-ha-plugin/src/grottext/ha/__init__.py" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"/></svg>
     </a>
@@ -959,7 +959,7 @@
     
       
     
-    <a href="https://github.com/home/eguilluy/PycharmProjects/groot-ha/src/grottext/ha/__init__.py" title="View source of this page" class="md-content__button md-icon">
+    <a href="https://github.com/home/runner/work/grott-ha-plugin/grott-ha-plugin/src/grottext/ha/__init__.py" title="View source of this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17 18c.56 0 1 .44 1 1s-.44 1-1 1-1-.44-1-1 .44-1 1-1m0-3c-2.73 0-5.06 1.66-6 4 .94 2.34 3.27 4 6 4s5.06-1.66 6-4c-.94-2.34-3.27-4-6-4m0 6.5a2.5 2.5 0 0 1-2.5-2.5 2.5 2.5 0 0 1 2.5-2.5 2.5 2.5 0 0 1 2.5 2.5 2.5 2.5 0 0 1-2.5 2.5M9.27 20H6V4h7v5h5v4.07c.7.08 1.36.25 2 .49V8l-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h4.5a8.15 8.15 0 0 1-1.23-2Z"/></svg>
     </a>
@@ -1008,6 +1008,48 @@
   <div class="doc doc-contents ">
   
       <p>Allow pushing to HA MQTT bus, with auto discovery</p>
+<p>Use the plugin interface of grott to grab the raw JSON and push it to HA MQTT bus.</p>
+
+<details class="how-does-it-work" open>
+  <summary>How does it work</summary>
+  <ul>
+<li>Parse the raw json</li>
+<li>Discard if it's a buffered message</li>
+<li>Cleanup the values field (spaces, invalid characters)</li>
+<li>Check if the device is already configured</li>
+<li>If not, create a new sensor for each value</li>
+<li>Push the values to the topic <code>homeassistant/grott/{device}/state</code></li>
+</ul>
+</details>
+
+
+  <p>Parameters:</p>
+  <ul>
+      <li class="field-body">
+        <b><code>conf</code></b>
+            (<code><a class="autorefs autorefs-internal" title="grottext.ha.interface.FakeConf" href="interface/#grottext.ha.interface.FakeConf">FakeConf</a></code>)
+        –
+        <div class="doc-md-description">
+          <p>The configuration object from grott</p>
+        </div>
+      </li>
+      <li class="field-body">
+        <b><code>data</code></b>
+            (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+        –
+        <div class="doc-md-description">
+          <p>The raw data</p>
+        </div>
+      </li>
+      <li class="field-body">
+        <b><code>jsonmsg</code></b>
+            (<code><a class="autorefs autorefs-external" href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+        –
+        <div class="doc-md-description">
+          <p>The raw json message</p>
+        </div>
+      </li>
+  </ul>
 
           <details class="quote">
             <summary>Source code in <code>src/grottext/ha/extension.py</code></summary>
@@ -1124,8 +1166,40 @@
 <span class="normal">136</span>
 <span class="normal">137</span>
 <span class="normal">138</span>
-<span class="normal">139</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">grottext</span><span class="p">(</span><span class="n">conf</span><span class="p">:</span> <span class="n">FakeConf</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">jsonmsg</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Allow pushing to HA MQTT bus, with auto discovery&quot;&quot;&quot;</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">grottext</span><span class="p">(</span><span class="n">conf</span><span class="p">:</span> <span class="n">FakeConf</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">jsonmsg</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Allow pushing to HA MQTT bus, with auto discovery</span>
+
+<span class="sd">    Use the plugin interface of grott to grab the raw JSON and push it to HA MQTT bus.</span>
+
+<span class="sd">    How does it work:</span>
+<span class="sd">        - Parse the raw json</span>
+<span class="sd">        - Discard if it&#39;s a buffered message</span>
+<span class="sd">        - Cleanup the values field (spaces, invalid characters)</span>
+<span class="sd">        - Check if the device is already configured</span>
+<span class="sd">        - If not, create a new sensor for each value</span>
+<span class="sd">        - Push the values to the topic `homeassistant/grott/{device}/state`</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">        conf: The configuration object from grott</span>
+<span class="sd">        data: The raw data</span>
+<span class="sd">        jsonmsg: The raw json message</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">required_params</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">MQTT_HOST_CONF_KEY</span><span class="p">,</span>
