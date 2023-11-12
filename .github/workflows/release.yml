@@ -4,6 +4,12 @@ on:
   push:
     tags:
       - "*"
+  workflow_dispatch:
+    start-worflow:
+      description: 'Number of Octocats'
+      required: false
+      default: '1'
+
 
 jobs:
   pypi-publish:
