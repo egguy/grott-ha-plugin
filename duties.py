@@ -112,7 +112,6 @@ def check_dependencies(ctx: Context) -> None:
         title="Checking dependencies",
         command="pdm export -f requirements --without-hashes | safety check --stdin",
     )
-    # ctx.run("rm requirements.txt", title="Cleanup requirements.txt")
 
 
 @duty
@@ -201,7 +200,7 @@ def docs(ctx: Context, host: str = "127.0.0.1", port: int = 8000) -> None:
         )
 
 
-@duty
+@duty(pre=["test", "coverage"])
 def docs_deploy(ctx: Context) -> None:
     """Deploy the documentation on GitHub pages.
 
@@ -209,10 +208,7 @@ def docs_deploy(ctx: Context) -> None:
         ctx: The context instance (passed automatically).
     """
     os.environ["DEPLOY"] = "true"
-    with material_insiders() as insiders:
-        if not insiders:
-            ctx.run(lambda: False, title="Not deploying docs without Material for MkDocs Insiders!")
-        ctx.run(mkdocs.gh_deploy(), title="Deploying documentation")
+    ctx.run(mkdocs.gh_deploy(), title="Deploying documentation")
 
 
 @duty
@@ -242,8 +238,8 @@ def release(ctx: Context, version: str) -> None:
     ctx.run(f"git tag {version}", title="Tagging commit", pty=PTY)
     ctx.run("git push", title="Pushing commits", pty=False)
     ctx.run("git push --tags", title="Pushing tags", pty=False)
-    ctx.run("pdm build", title="Building dist/wheel", pty=PTY)
-    ctx.run("twine upload --skip-existing dist/*", title="Publishing version", pty=PTY)
+    # ctx.run("pdm build", title="Building dist/wheel", pty=PTY)
+    # ctx.run("twine upload --skip-existing dist/*", title="Publishing version", pty=PTY)
 
 
 @duty(silent=True, aliases=["coverage"])
