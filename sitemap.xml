@@ -2,62 +2,67 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://egguy.github.io/grott-ha-plugin/</loc>
-         <lastmod>2023-11-08</lastmod>
+         <lastmod>2023-11-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://egguy.github.io/grott-ha-plugin/changelog/</loc>
-         <lastmod>2023-11-08</lastmod>
+         <lastmod>2023-11-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://egguy.github.io/grott-ha-plugin/contributing/</loc>
+         <lastmod>2023-11-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://egguy.github.io/grott-ha-plugin/reference/SUMMARY/</loc>
-         <lastmod>2023-11-08</lastmod>
+         <lastmod>2023-11-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://egguy.github.io/grott-ha-plugin/reference/grottext/</loc>
-         <lastmod>2023-11-08</lastmod>
+         <lastmod>2023-11-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://egguy.github.io/grott-ha-plugin/reference/grottext/ha/</loc>
-         <lastmod>2023-11-08</lastmod>
+         <lastmod>2023-11-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://egguy.github.io/grott-ha-plugin/reference/grottext/ha/constants/</loc>
-         <lastmod>2023-11-08</lastmod>
+         <lastmod>2023-11-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://egguy.github.io/grott-ha-plugin/reference/grottext/ha/extension/</loc>
-         <lastmod>2023-11-08</lastmod>
+         <lastmod>2023-11-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://egguy.github.io/grott-ha-plugin/reference/grottext/ha/ha_types/</loc>
-         <lastmod>2023-11-08</lastmod>
+         <lastmod>2023-11-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://egguy.github.io/grott-ha-plugin/reference/grottext/ha/interface/</loc>
-         <lastmod>2023-11-08</lastmod>
+         <lastmod>2023-11-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://egguy.github.io/grott-ha-plugin/reference/grottext/ha/mappings/</loc>
-         <lastmod>2023-11-08</lastmod>
+         <lastmod>2023-11-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://egguy.github.io/grott-ha-plugin/reference/grottext/ha/mqtt/</loc>
-         <lastmod>2023-11-08</lastmod>
+         <lastmod>2023-11-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://egguy.github.io/grott-ha-plugin/coverage/</loc>
-         <lastmod>2023-11-08</lastmod>
+         <lastmod>2023-11-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
