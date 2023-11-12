@@ -40,8 +40,13 @@ class MQTTConfigPayload:
 def is_valid_mqtt_topic(key_name: str) -> bool:
     """Check if the key is a valid mqtt topic
 
-    :param key_name: The value of the key (e.g. "ACDischarWatt")
-    :return: True if the key is a valid mqtt topic, False otherwise
+    Look If the possible topic is valid, based on the MQTT spec and reserved keywords
+
+    Parameters:
+        key_name: The value of the key (e.g. "ACDischarWatt")
+
+    Returns:
+         True if the key is a valid mqtt topic, False otherwise
     """
     key_name = key_name.strip()
     # Character used to bind wildcard topics
@@ -64,8 +69,13 @@ def is_valid_mqtt_topic(key_name: str) -> bool:
 def cleanup_mqtt_values_field(values: Dict[str, Any]) -> Dict[str, Any]:
     """Cleanup the values from invalid keys
 
-    :param values: Original dict
-    :return: The cleaned-up values
+    Drop the possible invalid keys from the values and normalize the keys.
+
+    Parameters:
+        values: Original dict
+
+    Returns:
+        The cleaned-up values
     """
     return {k.strip(): v for k, v in values.items() if is_valid_mqtt_topic(k)}
 
@@ -77,11 +87,14 @@ def make_payload(conf: FakeConf, device: str, key: str, name: Optional[str] = No
     attributes if they exist.
     E.g., unit_of_measurement/total increasing/etc.
 
-    :param conf: The configuration object, used to extract default divider
-    :param device: Use the device name as part of the sensor name + device
-    :param key: The key of the sensor sent by grott
-    :param name: The name of the sensor, if you want something different
-    :return: A dictionary with the MQTT configuration payload
+    Parameters:
+        conf: The configuration object, used to extract default divider
+        device: Use the device name as part of the sensor name + device
+        key: The key of the sensor sent by grott
+        name: The name of the sensor, if you want something different
+
+    Returns:
+        A dictionary with the MQTT configuration payload
     """
 
     if not device:

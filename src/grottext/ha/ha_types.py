@@ -107,8 +107,11 @@ class PowerFactor(MeasurementSensor):
 def to_dict(obj: Any) -> Dict[str, Any]:
     """Convert a dataclass object to dict
 
-    :param obj: The sensor object to convert
-    :return: A dictionary representation of the object
+    Parameters:
+        obj: The sensor object to convert
+
+    Returns:
+        A dictionary representation of the object
     """
     dict_obj = asdict(obj)
     # Remove None values

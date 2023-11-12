@@ -61,7 +61,7 @@ mapping: Dict[str, BaseSensor] = {
     "epv1tot": IncreasingEnergySensor("Solar PV1 production (Total)", icon="mdi:solar-power"),
     "epv2total": IncreasingEnergySensor("Solar PV2 production (Total)", icon="mdi:solar-power"),
     "epv2tot": IncreasingEnergySensor("Solar PV3 production (Total)", icon="mdi:solar-power"),
-    # For SPH compatiblity
+    # For SPH compatibility
     "epvTotal": IncreasingEnergySensor("Generated PV energy (Total)", icon="mdi:solar-power"),
     "pactouserr": PowerSensor("Import from grid", icon="mdi:transmission-tower-export"),
     "pactousertot": PowerSensor("Import from grid total", icon="mdi:transmission-tower-export"),
@@ -109,6 +109,8 @@ mapping: Dict[str, BaseSensor] = {
     "SOC": BatteryChargeSensor(
         "Battery charge",
         icon="mdi:battery-charging-60",
+        # The battery charge is directly a percentage,
+        # there is an error in the layout.
         value_template="{{ value_json.SOC | int }}",
     ),
     "loadpercent": PercentSensor("Load percentage"),

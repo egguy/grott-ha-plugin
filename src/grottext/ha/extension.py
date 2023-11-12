@@ -24,7 +24,23 @@ __pv_config: Dict[str, bool] = {}
 
 
 def grottext(conf: FakeConf, data: str, jsonmsg: str) -> int:
-    """Allow pushing to HA MQTT bus, with auto discovery"""
+    """Allow pushing to HA MQTT bus, with auto discovery
+
+    Use the plugin interface of grott to grab the raw JSON and push it to HA MQTT bus.
+
+    How does it work:
+        - Parse the raw json
+        - Discard if it's a buffered message
+        - Cleanup the values field (spaces, invalid characters)
+        - Check if the device is already configured
+        - If not, create a new sensor for each value
+        - Push the values to the topic `homeassistant/grott/{device}/state`
+
+    Parameters:
+        conf: The configuration object from grott
+        data: The raw data
+        jsonmsg: The raw json message
+    """
 
     required_params = [
         MQTT_HOST_CONF_KEY,
