@@ -38,7 +38,7 @@ jobs:
     - name: Fetch all tags
       run: git fetch --depth=1 --tags
     - name: Setup Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
     - name: Install git-changelog
       run: pip install git-changelog
     - name: Prepare release notes
