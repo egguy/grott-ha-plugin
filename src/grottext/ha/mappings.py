@@ -84,7 +84,7 @@ mapping: Dict[str, BaseSensor] = {
     # Need to investigate
     "elocalload_tod": EnergySensor("Load Consumption Energy - Today", icon="mdi:solar-power"),
     "elocalload_tot": IncreasingEnergySensor("Load Consumption Energy - Total", icon="mdi:solar-power"),
-    "AC_InWatt": PowerSensor("Grid input power"),
+    "AC_InWatt": PowerSensor("Import from Grid Power", icon="mdi:home-import-outline"),
     "AC_InVA": ApparentPower("Grid input apparent power"),
     "plocaloadr": PowerSensor("Local load consumption", icon="mdi:transmission-tower-export"),
     # extension data
@@ -104,7 +104,7 @@ mapping: Dict[str, BaseSensor] = {
     "eacharge_total": IncreasingEnergySensor("Battery charge from AC (Total)", icon="mdi:battery-arrow-up"),
     "eacCharTotal": IncreasingEnergySensor("Lifetime battery charge from grid", icon="mdi:battery-arrow-up"),
     "eacDischarToday": EnergySensor("Battery dischage today", icon="mdi:battery-arrow-down"),
-    "eacDischarTotal": IncreasingEnergySensor("Lifetime battery discharge", icon="mdi:battery-arrow-down"),
+    "eacDischarTotal": IncreasingEnergySensor("AC Discharge Energy (AC Bypass) - Total", icon="mdi:battery-arrow-down"),
     "vbat": VoltageSensor("Battery voltage"),
     "SOC": BatteryChargeSensor(
         "Battery charge",
@@ -119,7 +119,7 @@ mapping: Dict[str, BaseSensor] = {
     "bat_Volt": VoltageSensor("Battery voltage"),
     # register 29
     "bat_dsp": VoltageSensor("Battery bus voltage"),
-    "ACDischarWatt": PowerSensor("Load power"),
+    "ACDischarWatt": PowerSensor("AC Discharge (Load Consumption) Power"),
     "ACDischarVA": ApparentPower("Load reactive power"),
     "BatDischarWatt": PowerSensor("Battery discharge power"),
     "BatWatt": PowerSensor("Battery discharge power", icon="mdi:battery"),
