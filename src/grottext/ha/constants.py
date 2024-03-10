@@ -6,3 +6,5 @@ MQTT_PORT_CONF_KEY = "ha_mqtt_port"
 MQTT_USERNAME_CONF_KEY = "ha_mqtt_user"
 MQTT_PASSWORD_CONF_KEY = "ha_mqtt_password"
 MQTT_RETAIN_CONF_KEY = "ha_mqtt_retain"
+
+MQTT_EXPIRE_AFTER = 15 * 60  # 15 minutes

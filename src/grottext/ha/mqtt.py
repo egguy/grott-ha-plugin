@@ -4,6 +4,7 @@ from typing import Any, Dict, List, Optional, Union
 from paho.mqtt.publish import multiple, single
 
 from grottext.ha.constants import (
+    MQTT_EXPIRE_AFTER,
     MQTT_HOST_CONF_KEY,
     MQTT_PASSWORD_CONF_KEY,
     MQTT_PORT_CONF_KEY,
@@ -35,6 +36,7 @@ class MQTTConfigPayload:
     icon: Optional[str] = None
     entity_category: Optional[str] = None
     unit_of_measurement: Optional[str] = None
+    expire_after: Optional[int] = None
 
 
 def is_valid_mqtt_topic(key_name: str) -> bool:
@@ -154,6 +156,7 @@ def make_payload(conf: FakeConf, device: str, key: str, name: Optional[str] = No
             manufacturer="GrowWatt",
         ),
         value_template=value_template,
+        expire_after=MQTT_EXPIRE_AFTER,
     )
 
     if sensor is not None:
