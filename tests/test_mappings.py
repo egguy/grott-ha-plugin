@@ -1,3 +1,4 @@
+from grottext.ha.constants import MQTT_EXPIRE_AFTER
 from grottext.ha.ha_types import to_dict
 from grottext.ha.mappings import mapping
 from grottext.ha.mqtt import MQTTConfigPayload, make_payload
@@ -18,6 +19,7 @@ def test_generate_payload(fake_config):
     assert payload["state_class"] == "measurement"
     assert payload["device_class"] == "power"
     assert payload["unit_of_measurement"] == "W"
+    assert payload["expire_after"] == MQTT_EXPIRE_AFTER
 
 
 def test_generate_log_type_payload(fake_config):

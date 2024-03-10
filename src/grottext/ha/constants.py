@@ -10,6 +10,7 @@ MQTT_USERNAME_CONF_KEY = "ha_mqtt_user"
 MQTT_PASSWORD_CONF_KEY = "ha_mqtt_password"
 MQTT_RETAIN_CONF_KEY = "ha_mqtt_retain"
 
+# https://www.home-assistant.io/integrations/sensor.mqtt/#expire_after
 MQTT_EXPIRE_AFTER = 15 * 60  # 15 minutes
 
 
@@ -19,6 +20,3 @@ class MQTTConfiguration:
     hostname: str
     port: int
     client_id: str = "Grott - HA"
-
-
-MQTT_EXPIRE_AFTER = 15 * 60  # 15 minutes
