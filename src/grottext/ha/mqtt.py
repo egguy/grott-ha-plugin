@@ -1,5 +1,5 @@
-from dataclasses import dataclass
-from typing import Any, Dict, List, Optional, Union
+from dataclasses import asdict, dataclass
+from typing import Any, Dict, List, Optional
 
 from paho.mqtt.publish import multiple, single
 
@@ -9,12 +9,11 @@ from grottext.ha.constants import (
     MQTT_PASSWORD_CONF_KEY,
     MQTT_PORT_CONF_KEY,
     MQTT_USERNAME_CONF_KEY,
+    MQTTConfiguration,
 )
 from grottext.ha.ha_types import to_dict
 from grottext.ha.interface import FakeConf
 from grottext.ha.mappings import mapping
-
-_client_name = "Grott - HA"
 
 
 @dataclass
@@ -176,7 +175,7 @@ def make_payload(conf: FakeConf, device: str, key: str, name: Optional[str] = No
     return to_dict(payload)
 
 
-def process_conf(conf: FakeConf) -> Dict[str, Union[str, int, Dict[str, Any], None]]:
+def process_conf(conf: FakeConf) -> MQTTConfiguration:
     required_params = [
         MQTT_HOST_CONF_KEY,
         MQTT_PORT_CONF_KEY,
@@ -187,11 +186,16 @@ def process_conf(conf: FakeConf) -> Dict[str, Union[str, int, Dict[str, Any], No
 
     if MQTT_USERNAME_CONF_KEY in conf.extvar:
         auth = {
-            "username": conf.extvar[MQTT_USERNAME_CONF_KEY],
-            "password": conf.extvar[MQTT_PASSWORD_CONF_KEY],
+            "username": str(conf.extvar.get(MQTT_USERNAME_CONF_KEY, "")),
+            "password": str(conf.extvar.get(MQTT_PASSWORD_CONF_KEY, "")),
         }
     else:
         auth = None
+
+    hostname = str(conf.extvar.get(MQTT_HOST_CONF_KEY, ""))
+    if not hostname:
+        msg = f"Invalid hostname: {hostname}"
+        raise AttributeError(msg)
 
     mqtt_port = conf.extvar[MQTT_PORT_CONF_KEY]
     # Need to convert the port if passed as a string
@@ -203,19 +207,18 @@ def process_conf(conf: FakeConf) -> Dict[str, Union[str, int, Dict[str, Any], No
         msg = f"Invalid port type: {type(mqtt_port)}"
         raise AttributeError(msg)
 
-    return {
-        "client_id": _client_name,
-        "auth": auth,
-        "hostname": conf.extvar[MQTT_HOST_CONF_KEY],
-        "port": port,
-    }
+    return MQTTConfiguration(
+        auth=auth,
+        hostname=hostname,
+        port=port,
+    )
 
 
 def publish_single(conf: FakeConf, topic: str, payload: str, *, retain: bool = False) -> None:
     mqtt_conf = process_conf(conf)
-    single(topic, payload=payload, retain=retain, **mqtt_conf)
+    single(topic, payload=payload, retain=retain, **asdict(mqtt_conf))
 
 
 def publish_multiple(conf: FakeConf, msgs: List[Dict[str, Any]]) -> None:
     mqtt_conf = process_conf(conf)
-    multiple(msgs, **mqtt_conf)
+    multiple(msgs, **asdict(mqtt_conf))

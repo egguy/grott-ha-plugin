@@ -1,3 +1,5 @@
+from dataclasses import asdict
+
 import pytest
 
 from grottext.ha.constants import MQTT_HOST_CONF_KEY, MQTT_PASSWORD_CONF_KEY, MQTT_PORT_CONF_KEY, MQTT_USERNAME_CONF_KEY
@@ -97,12 +99,43 @@ def test_process_conf():
         MQTT_PORT_CONF_KEY: "1883",
     }
     res = process_conf(conf)
-    assert res["hostname"] == "localhost"
-    assert res["port"] == 1883
-    assert res["client_id"] == "Grott - HA"
-    assert res["auth"] is None
+    assert res.hostname == "localhost"
+    assert res.port == 1883
+    assert res.client_id == "Grott - HA"
+    assert res.auth is None
     # test with auth
     conf.extvar[MQTT_USERNAME_CONF_KEY] = "user"
     conf.extvar[MQTT_PASSWORD_CONF_KEY] = "pass"
     res = process_conf(conf)
-    assert res["auth"] == {"username": "user", "password": "pass"}
+    assert res.auth == {"username": "user", "password": "pass"}
+
+
+def test_process_conf_asdict():
+    conf = FakeConf()
+    try:
+        res = process_conf(conf)
+        pytest.fail("Should have raised an exception")
+    except AttributeError:
+        pass
+
+    conf.extvar = {
+        MQTT_HOST_CONF_KEY: "localhost",
+        MQTT_PORT_CONF_KEY: "1883",
+    }
+    res = asdict(process_conf(conf))
+    assert res == {
+        "hostname": "localhost",
+        "port": 1883,
+        "client_id": "Grott - HA",
+        "auth": None,
+    }
+    # test with auth
+    conf.extvar[MQTT_USERNAME_CONF_KEY] = "user"
+    conf.extvar[MQTT_PASSWORD_CONF_KEY] = "pass"
+    res = asdict(process_conf(conf))
+    assert res == {
+        "hostname": "localhost",
+        "port": 1883,
+        "client_id": "Grott - HA",
+        "auth": {"username": "user", "password": "pass"},
+    }
