@@ -152,7 +152,7 @@ def make_payload(conf: FakeConf, device: str, key: str, name: Optional[str] = No
         device=Device(
             identifiers=[device],  # Group under a device
             name=device,
-            manufacturer="GrowWatt",
+            manufacturer="Growatt",
         ),
         value_template=value_template,
         expire_after=MQTT_EXPIRE_AFTER,
